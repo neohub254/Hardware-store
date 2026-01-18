@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 NexusBuild Admin Dashboard | Secure Management</title>
+    
+
+
+
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Tell Google not to index admin pages -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <title>Admin Panel - Hardware Store Management</title>
+    <meta name="description" content="Hardware store administration panel">
+    
+    <!-- Security: Prevent iframe embedding -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
+
+    <!-- === TECH THEME FONTS === -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- === CHART.JS === -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- === ADMIN DASHBOARD CSS === -->
+    <link rel="stylesheet" href="admin-dashboard.css">
+    <link rel="stylesheet" href="admin-dashboard-anim.css">
+    
+    <!-- === FAVICON === -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <!-- === SECURITY META === -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Secure admin dashboard for NexusBuild Construction management">
+    
+    <style>
+        /* Quick theme override for dashboard */
+        :root {
+            --tech-primary: #0a192f;
+            --tech-secondary: #112240;
+            --tech-accent: #64ffda;
+            --tech-accent-blue: #57cbff;
+            --tech-dark: #020c1b;
+            --tech-light: #ccd6f6;
+        }
+    </style>
+</head>
+<body class="tech-dashboard">
+    <!-- === SECURITY OVERLAY === -->
+    <div class="security-overlay">
+        <div class="security-grid"></div>
+        <div class="data-stream">
+            <div class="stream-line"></div>
+            <div class="stream-line"></div>
+            <div class="stream-line"></div>
+        </div>
+    </div>
+
+    <!-- === SESSION WARNING === -->
+    <div class="session-warning" id="sessionWarning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>SESSION EXPIRES IN: <span id="sessionTimer">30:00</span></span>
+        <button class="extend-session" id="extendSession">
+            <i class="fas fa-sync-alt"></i> EXTEND
+        </button>
+    </div>
+
+    <!-- === MOBILE HEADER === -->
+    <div class="mobile-header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="mobile-brand">
+            <div class="brand-orb">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <span>NEXUS ADMIN</span>
+        </div>
+        <div class="mobile-actions">
+            <button class="mobile-notification" id="mobileNotification">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- === SIDEBAR === -->
+    <div class="admin-sidebar">
+        <!-- Brand Header -->
+        <div class="sidebar-brand">
+            <div class="brand-logo">
+                <div class="logo-core">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <div class="logo-ring"></div>
+            </div>
+            <div class="brand-text">
+                <h1 class="brand-title">NEXUS<span class="tech-glow">ADMIN</span></h1>
+                <p class="brand-subtitle">CONSTRUCTION MANAGEMENT</p>
+            </div>
+            <div class="system-status">
+                <span class="status-dot active"></span>
+                <span class="status-text">SYSTEM ONLINE</span>
+            </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="user-panel">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+                <div class="avatar-status"></div>
+            </div>
+            <div class="user-info">
+                <h3>ADMINISTRATOR</h3>
+                <p class="user-role">SUPER ADMIN</p>
+                <p class="user-ip">IP: <span id="currentIP">192.168.1.1</span></p>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <nav class="sidebar-menu">
+            <div class="menu-section">
+                <div class="section-label">CORE</div>
+                <a href="#dashboard" class="menu-item active" data-section="dashboard">
+                    <div class="menu-icon">
+                        <i class="fas fa-tachometer-alt-fast"></i>
+                    </div>
+                    <span class="menu-text">DASHBOARD</span>
+                    <span class="menu-badge" id="dashboardBadge">5</span>
+                </a>
+                
+                <a href="#products" class="menu-item" data-section="products">
+                    <div class="menu-icon">
+                        <i class="fas fa-boxes-stacked"></i>
+                    </div>
+                    <span class="menu-text">PRODUCTS</span>
+                    <span class="menu-badge" id="productsBadge">12</span>
+                </a>
+                
+                <a href="#inventory" class="menu-item" data-section="inventory">
+                    <div class="menu-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <span class="menu-text">INVENTORY</span>
+                    <span class="menu-badge warning" id="inventoryBadge">3</span>
+                </a>
+            </div>
+
+            <div class="menu-section">
+                <div class="section-label">SALES</div>
+                <a href="#orders" class="menu-item" data-section="orders">
+                    <div class="menu-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <span class="menu-text">ORDERS</span>
+                    <span class="menu-badge" id="ordersBadge">8</span>
+                </a>
+                
+                <a href="#pricing" class="menu-item" data-section="pricing">
+                    <div class="menu-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <span class="menu-text">PRICING</span>
+                </a>
+                
+                <a href="#customers" class="menu-item" data-section="customers">
+                    <div class="menu-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="menu-text">CUSTOMERS</span>
+                </a>
+            </div>
+
+            <div class="menu-section">
+                <div class="section-label">TOOLS</div>
+                <a href="#calculator" class="menu-item" data-section="calculator">
+                    <div class="menu-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <span class="menu-text">CALCULATOR</span>
+                </a>
+                
+                <a href="#reports" class="menu-item" data-section="reports">
+                    <div class="menu-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span class="menu-text">REPORTS</span>
+                </a>
+                
+                <a href="#quotes" class="menu-item" data-section="quotes">
+                    <div class="menu-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <span class="menu-text">QUOTES</span>
+                    <span class="menu-badge" id="quotesBadge">4</span>
+                </a>
+            </div>
+
+            <div class="menu-section">
+                <div class="section-label">SYSTEM</div>
+                <a href="#settings" class="menu-item" data-section="settings">
+                    <div class="menu-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <span class="menu-text">SETTINGS</span>
+                </a>
+                
+                <a href="#backup" class="menu-item" data-section="backup">
+                    <div class="menu-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <span class="menu-text">BACKUP</span>
+                </a>
+                
+                <a href="#security" class="menu-item" data-section="security">
+                    <div class="menu-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span class="menu-text">SECURITY</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Quick Stats -->
+        <div class="sidebar-stats">
+            <div class="stat-item">
+                <div class="stat-value" id="sidebarRevenue">Ksh 0</div>
+                <div class="stat-label">TODAY</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="sidebarOrders">0</div>
+                <div class="stat-label">ORDERS</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="sidebarProducts">0</div>
+                <div class="stat-label">PRODUCTS</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="sidebar-footer">
+            <button class="btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>LOGOUT</span>
+            </button>
+            <a href="products.html" class="btn-view-site" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+                <span>VIEW SITE</span>
+            </a>
+            <a href="index.html" class="btn-home">
+                <i class="fas fa-home"></i>
+                <span>HOME</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- === MAIN CONTENT === -->
+    <div class="admin-main">
+        <!-- Dashboard Header -->
+        <div class="main-header">
+            <div class="header-left">
+                <h1 class="page-title" id="pageTitle">DASHBOARD</h1>
+                <p class="page-subtitle" id="pageSubtitle">Real-time system overview</p>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="action-btn" id="refreshData">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>REFRESH</span>
+                    </button>
+                    
+                    <button class="action-btn" id="notificationsBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </button>
+                    
+                    <button class="action-btn" id="quickHelp">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    
+                    <div class="user-dropdown">
+                        <button class="user-btn" id="userMenu">
+                            <div class="user-avatar-sm">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span>ADMIN</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="#profile"><i class="fas fa-user-cog"></i> Profile</a>
+                            <a href="#security"><i class="fas fa-shield-alt"></i> Security</a>
+                            <div class="divider"></div>
+                            <a href="#" id="logoutDropdown"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="main-content">
+            <!-- === DASHBOARD SECTION === -->
+            <section class="content-section active" id="dashboardSection">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalRevenue">Ksh 0</div>
+                            <div class="stat-label">TOTAL REVENUE</div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="revenueTrend">+12.5%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalOrders">0</div>
+                            <div class="stat-label">TOTAL ORDERS</div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="ordersTrend">+8.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-icon">
+                            <i class="fas fa-boxes-stacked"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="totalProducts">0</div>
+                            <div class="stat-label">PRODUCTS</div>
+                            <div class="stat-trend negative">
+                                <i class="fas fa-arrow-down"></i>
+                                <span id="productsTrend">-3.1%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card danger">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="lowStockCount">0</div>
+                            <div class="stat-label">LOW STOCK</div>
+                            <div class="stat-trend negative">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="stockTrend">+15.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions-panel">
+                    <h2 class="panel-title">
+                        <i class="fas fa-bolt"></i>
+                        QUICK ACTIONS
+                    </h2>
+                    <div class="actions-grid">
+                        <button class="action-card" data-action="addProduct">
+                            <div class="action-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <div class="action-text">
+                                <h3>ADD PRODUCT</h3>
+                                <p>Add new construction material</p>
+                            </div>
+                        </button>
+                        
+                        <button class="action-card" data-action="updatePrices">
+                            <div class="action-icon">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="action-text">
+                                <h3>UPDATE PRICES</h3>
+                                <p>Bulk price management</p>
+                            </div>
+                        </button>
+                        
+                        <button class="action-card" data-action="viewOrders">
+                            <div class="action-icon">
+                                <i class="fas fa-list"></i>
+                            </div>
+                            <div class="action-text">
+                                <h3>VIEW ORDERS</h3>
+                                <p>Process pending orders</p>
+                            </div>
+                        </button>
+                        
+                        <button class="action-card" data-action="generateQuote">
+                            <div class="action-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <div class="action-text">
+                                <h3>GENERATE QUOTE</h3>
+                                <p>Create customer quote</p>
+                            </div>
+                        </button>
+                        
+                        <button class="action-card" data-action="checkInventory">
+                            <div class="action-icon">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                            <div class="action-text">
+                                <h3>CHECK INVENTORY</h3>
+                                <p>Stock level overview</p>
+                            </div>
+                        </button>
+                        
+                        <button class="action-card" data-action="viewAnalytics">
+                            <div class="action-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="action-text">
+                                <h3>VIEW ANALYTICS</h3>
+                                <p>Sales performance</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-bar"></i> REVENUE TREND</h3>
+                            <select class="chart-period" id="revenuePeriod">
+                                <option value="week">This Week</option>
+                                <option value="month" selected>This Month</option>
+                                <option value="quarter">This Quarter</option>
+                                <option value="year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-pie"></i> CATEGORY DISTRIBUTION</h3>
+                            <select class="chart-period" id="categoryPeriod">
+                                <option value="month" selected>This Month</option>
+                                <option value="quarter">This Quarter</option>
+                                <option value="year">This Year</option>
+                            </select>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity & Top Products -->
+                <div class="info-row">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <h3><i class="fas fa-history"></i> RECENT ACTIVITY</h3>
+                            <button class="btn-clear" id="clearActivity">CLEAR</button>
+                        </div>
+                        <div class="activity-list" id="activityList">
+                            <!-- Activity items will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-header">
+                            <h3><i class="fas fa-star"></i> TOP PRODUCTS</h3>
+                            <select class="info-filter" id="topProductsFilter">
+                                <option value="revenue">By Revenue</option>
+                                <option value="sales">By Sales</option>
+                                <option value="profit">By Profit</option>
+                            </select>
+                        </div>
+                        <div class="top-products-list" id="topProductsList">
+                            <!-- Top products will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- === PRODUCTS SECTION === -->
+            <section class="content-section" id="productsSection">
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <i class="fas fa-boxes-stacked"></i>
+                        PRODUCTS MANAGEMENT
+                    </h1>
+                    <div class="section-actions">
+                        <button class="btn-primary" id="addProductBtn">
+                            <i class="fas fa-plus"></i>
+                            ADD PRODUCT
+                        </button>
+                        <button class="btn-secondary" id="exportProducts">
+                            <i class="fas fa-file-export"></i>
+                            EXPORT
+                        </button>
+                        <button class="btn-secondary" id="importProducts">
+                            <i class="fas fa-file-import"></i>
+                            IMPORT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Summary -->
+                <div class="products-summary">
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <div class="summary-content">
+                            <div class="summary-value" id="totalProductsCount">0</div>
+                            <div class="summary-label">TOTAL PRODUCTS</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-money-bill"></i>
+                        </div>
+                        <div class="summary-content">
+                            <div class="summary-value" id="inventoryValue">Ksh 0</div>
+                            <div class="summary-label">INVENTORY VALUE</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="summary-content">
+                            <div class="summary-value" id="categoriesCount">0</div>
+                            <div class="summary-label">CATEGORIES</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="summary-content">
+                            <div class="summary-value" id="lastUpdated">--</div>
+                            <div class="summary-label">LAST UPDATED</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Product Form (Initially Hidden) -->
+                <div class="add-product-form" id="addProductForm" style="display: none;">
+                    <div class="form-header">
+                        <h2><i class="fas fa-plus-circle"></i> ADD NEW PRODUCT</h2>
+                        <button class="btn-close" id="closeProductForm">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <!-- Left Column -->
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="productName">
+                                    <i class="fas fa-tag"></i> PRODUCT NAME
+                                </label>
+                                <input type="text" id="productName" placeholder="e.g., Bamburi Cement 50kg">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productCategory">
+                                    <i class="fas fa-folder"></i> CATEGORY
+                                </label>
+                                <select id="productCategory">
+                                    <option value="">Select Category</option>
+                                    <option value="cement">Cement & Aggregates</option>
+                                    <option value="sand">Sand & Ballast</option>
+                                    <option value="roofing">Roofing Materials</option>
+                                    <option value="plumbing">Plumbing Supplies</option>
+                                    <option value="electrical">Electrical Materials</option>
+                                    <option value="tools">Hardware Tools</option>
+                                    <option value="paints">Paints & Finishes</option>
+                                    <option value="steel">Steel & Metal</option>
+                                    <option value="other">Other Materials</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productIcon">
+                                    <i class="fas fa-icons"></i> SELECT ICON
+                                </label>
+                                <div class="icon-selector" id="iconSelector">
+                                    <!-- Icons will be loaded dynamically -->
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productDescription">
+                                    <i class="fas fa-file-alt"></i> DESCRIPTION
+                                </label>
+                                <textarea id="productDescription" placeholder="Product description..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column -->
+                        <div class="form-column">
+                            <div class="form-group">
+                                <label for="productUnit">
+                                    <i class="fas fa-balance-scale"></i> UNIT TYPE
+                                </label>
+                                <select id="productUnit">
+                                    <option value="bag">Bag</option>
+                                    <option value="tonne">Tonne</option>
+                                    <option value="piece">Piece</option>
+                                    <option value="kg">Kilogram (KG)</option>
+                                    <option value="liter">Liter</option>
+                                    <option value="roll">Roll</option>
+                                    <option value="set">Set</option>
+                                    <option value="box">Box</option>
+                                    <option value="sheet">Sheet</option>
+                                    <option value="meter">Meter</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productPrice">
+                                    <i class="fas fa-money-bill"></i> PRICE (Ksh)
+                                </label>
+                                <input type="number" id="productPrice" placeholder="0" min="0" step="10">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productStock">
+                                    <i class="fas fa-box"></i> STOCK QUANTITY
+                                </label>
+                                <input type="number" id="productStock" placeholder="0" min="0">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productMinStock">
+                                    <i class="fas fa-exclamation-triangle"></i> MINIMUM STOCK LEVEL
+                                </label>
+                                <input type="number" id="productMinStock" placeholder="10" min="0">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productSupplier">
+                                    <i class="fas fa-truck"></i> SUPPLIER (Optional)
+                                </label>
+                                <input type="text" id="productSupplier" placeholder="Supplier name">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn-save" id="saveProductBtn">
+                            <i class="fas fa-save"></i> SAVE PRODUCT
+                        </button>
+                        <button class="btn-cancel" id="cancelProductBtn">
+                            <i class="fas fa-times"></i> CANCEL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Filter & Search -->
+                <div class="products-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchProducts" placeholder="Search products...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="filterCategory">
+                            <option value="all">All Categories</option>
+                            <option value="cement">Cement</option>
+                            <option value="sand">Sand</option>
+                            <option value="roofing">Roofing</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="electrical">Electrical</option>
+                            <option value="tools">Tools</option>
+                            <option value="paints">Paints</option>
+                            <option value="steel">Steel</option>
+                        </select>
+                        
+                        <select id="filterStock">
+                            <option value="all">All Stock</option>
+                            <option value="in-stock">In Stock</option>
+                            <option value="low-stock">Low Stock</option>
+                            <option value="out-of-stock">Out of Stock</option>
+                        </select>
+                        
+                        <button class="btn-filter" id="applyFilters">
+                            <i class="fas fa-filter"></i> FILTER
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="products-table-container">
+                    <table class="products-table" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>ICON</th>
+                                <th>PRODUCT NAME</th>
+                                <th>CATEGORY</th>
+                                <th>PRICE (Ksh)</th>
+                                <th>STOCK</th>
+                                <th>VALUE</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Products Table Footer -->
+                <div class="table-footer">
+                    <div class="footer-info">
+                        <span id="productsCount">0 products</span>
+                        <span>Total Value: <strong id="tableTotalValue">Ksh 0</strong></span>
+                    </div>
+                    <div class="pagination" id="productsPagination">
+                        <!-- Pagination will be generated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- === INVENTORY SECTION === -->
+            <section class="content-section" id="inventorySection">
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <i class="fas fa-warehouse"></i>
+                        INVENTORY MANAGEMENT
+                    </h1>
+                    <div class="section-actions">
+                        <button class="btn-primary" id="restockBtn">
+                            <i class="fas fa-truck-loading"></i>
+                            RESTOCK
+                        </button>
+                        <button class="btn-secondary" id="printInventory">
+                            <i class="fas fa-print"></i>
+                            PRINT REPORT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inventory Summary -->
+                <div class="inventory-summary">
+                    <div class="inventory-card critical">
+                        <div class="card-header">
+                            <h3><i class="fas fa-exclamation-circle"></i> CRITICAL STOCK</h3>
+                            <div class="card-count" id="criticalCount">0</div>
+                        </div>
+                        <div class="card-list" id="criticalList">
+                            <!-- Critical items will be shown here -->
+                        </div>
+                    </div>
+                    
+                    <div class="inventory-card low">
+                        <div class="card-header">
+                            <h3><i class="fas fa-exclamation-triangle"></i> LOW STOCK</h3>
+                            <div class="card-count" id="lowCount">0</div>
+                        </div>
+                        <div class="card-list" id="lowStockList">
+                            <!-- Low stock items will be shown here -->
+                        </div>
+                    </div>
+                    
+                    <div class="inventory-card healthy">
+                        <div class="card-header">
+                            <h3><i class="fas fa-check-circle"></i> HEALTHY STOCK</h3>
+                            <div class="card-count" id="healthyCount">0</div>
+                        </div>
+                        <div class="card-list" id="healthyStockList">
+                            <!-- Healthy stock items will be shown here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Table -->
+                <div class="inventory-table-container">
+                    <table class="inventory-table" id="inventoryTable">
+                        <thead>
+                            <tr>
+                                <th>PRODUCT</th>
+                                <th>CATEGORY</th>
+                                <th>CURRENT STOCK</th>
+                                <th>MINIMUM LEVEL</th>
+                                <th>REORDER QUANTITY</th>
+                                <th>STATUS</th>
+                                <th>LAST RESTOCK</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody">
+                            <!-- Inventory items will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- === ORDERS SECTION === -->
+            <section class="content-section" id="ordersSection">
+                <!-- Orders content will be added similarly -->
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <i class="fas fa-shopping-cart"></i>
+                        ORDERS MANAGEMENT
+                    </h1>
+                    <p>Coming soon - Order processing system</p>
+                </div>
+            </section>
+
+            <!-- === SETTINGS SECTION === -->
+            <section class="content-section" id="settingsSection">
+                <div class="section-header">
+                    <h1 class="section-title">
+                        <i class="fas fa-sliders-h"></i>
+                        SYSTEM SETTINGS
+                    </h1>
+                </div>
+
+                <!-- Settings Tabs -->
+                <div class="settings-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="general">GENERAL</button>
+                        <button class="tab-btn" data-tab="products-sync">PRODUCTS SYNC</button>
+                        <button class="tab-btn" data-tab="notifications">NOTIFICATIONS</button>
+                        <button class="tab-btn" data-tab="backup">BACKUP</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <!-- General Settings -->
+                        <div class="tab-pane active" id="generalTab">
+                            <h3><i class="fas fa-store"></i> STORE SETTINGS</h3>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Business Name:</label>
+                                    <input type="text" id="businessName" value="NexusBuild Construction">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Contact Phone:</label>
+                                    <input type="text" id="contactPhone" value="0705455312">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>WhatsApp Number:</label>
+                                    <input type="text" id="whatsappNumber" value="254705455312">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Email Address:</label>
+                                    <input type="email" id="businessEmail" value="info@nexusbuild.co.ke">
+                                </div>
+                                
+                                <button class="btn-save" id="saveGeneralSettings">
+                                    <i class="fas fa-save"></i> SAVE SETTINGS
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Products Sync Settings -->
+                        <div class="tab-pane" id="productsSyncTab">
+                            <h3><i class="fas fa-sync-alt"></i> PRODUCTS SYNC SETTINGS</h3>
+                            <div class="sync-settings">
+                                <div class="setting-item">
+                                    <label>
+                                        <input type="checkbox" id="autoSync" checked>
+                                        Auto-sync products with products.html
+                                    </label>
+                                    <small>Changes made in admin will automatically update products page</small>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <label>
+                                        <input type="checkbox" id="showOutOfStock">
+                                        Show out-of-stock products on products page
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <label>
+                                        <input type="checkbox" id="enableCategories" checked>
+                                        Enable category filtering on products page
+                                    </label>
+                                </div>
+                                
+                                <div class="sync-controls">
+                                    <button class="btn-sync-now" id="syncNow">
+                                        <i class="fas fa-sync"></i> SYNC NOW
+                                    </button>
+                                    <button class="btn-reset-products" id="resetProducts">
+                                        <i class="fas fa-redo"></i> RESET TO DEFAULT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Backup Settings -->
+                        <div class="tab-pane" id="backupTab">
+                            <h3><i class="fas fa-database"></i> DATA MANAGEMENT</h3>
+                            <div class="backup-options">
+                                <div class="backup-card">
+                                    <h4><i class="fas fa-download"></i> EXPORT DATA</h4>
+                                    <p>Download all products and settings as JSON file</p>
+                                    <button class="btn-export" id="exportData">
+                                        <i class="fas fa-file-export"></i> EXPORT ALL DATA
+                                    </button>
+                                </div>
+                                
+                                <div class="backup-card">
+                                    <h4><i class="fas fa-upload"></i> IMPORT DATA</h4>
+                                    <p>Restore from backup JSON file</p>
+                                    <input type="file" id="importFile" accept=".json">
+                                    <button class="btn-import" id="importData">
+                                        <i class="fas fa-file-import"></i> IMPORT DATA
+                                    </button>
+                                </div>
+                                
+                                <div class="backup-card">
+                                    <h4><i class="fas fa-trash-alt"></i> CLEAR DATA</h4>
+                                    <p>Clear all products and reset to default</p>
+                                    <button class="btn-danger" id="clearData">
+                                        <i class="fas fa-exclamation-triangle"></i> CLEAR ALL DATA
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- === MODALS === -->
+    
+    <!-- Restock Modal -->
+    <div class="modal" id="restockModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-truck-loading"></i> RESTOCK PRODUCT</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Restock form will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div class="modal" id="exportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-export"></i> EXPORT PRODUCTS</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="export-option">
+                        <input type="radio" name="exportFormat" value="json" checked>
+                        <label>JSON Format</label>
+                        <small>Full data with all details</small>
+                    </div>
+                    <div class="export-option">
+                        <input type="radio" name="exportFormat" value="csv">
+                        <label>CSV Format</label>
+                        <small>Spreadsheet compatible</small>
+                    </div>
+                </div>
+                <button class="btn-export-confirm" id="confirmExport">
+                    <i class="fas fa-download"></i> EXPORT NOW
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- === NOTIFICATIONS PANEL === -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="panel-header">
+            <h3><i class="fas fa-bell"></i> NOTIFICATIONS</h3>
+            <button class="panel-close">&times;</button>
+        </div>
+        <div class="panel-body" id="notificationsList">
+            <!-- Notifications will be loaded here -->
+        </div>
+    </div>
+
+    <!-- === SCRIPTS === -->
+    <script src="shared-database.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 NexusBuild Admin | Secure Login</title>
+    
+    <!-- === CUSTOMIZATION: Tech Fonts === -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- === ADMIN LOGIN STYLES === -->
+    <link rel="stylesheet" href="admin-login.css">
+    <link rel="stylesheet" href="admin-login-animations.css">
+    
+    <!-- === FAVICON === -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <!-- === SECURITY META TAGS === -->
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Secure admin portal for NexusBuild Construction. Authorized access only.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body class="tech-theme">
+    <!-- === SECURITY OVERLAY === -->
+    <div class="security-overlay" id="securityOverlay">
+        <div class="security-scanner"></div>
+        <div class="security-grid"></div>
+        <div class="security-pulse"></div>
+    </div>
+
+    <!-- === MAIN CONTAINER === -->
+    <div class="login-container">
+        <!-- === SECURITY HEADER === -->
+        <div class="security-header">
+            <div class="security-badge">
+                <div class="shield-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="security-status">
+                    <span class="status-indicator active"></span>
+                    <span class="status-text">SYSTEM SECURE</span>
+                </div>
+            </div>
+            <div class="session-timer">
+                <i class="fas fa-clock"></i>
+                <span id="sessionTimer">--:--</span>
+            </div>
+        </div>
+
+        <!-- === LOGIN CARD === -->
+        <div class="login-card">
+            <!-- Brand Header -->
+            <div class="brand-header">
+                <div class="brand-logo">
+                    <div class="logo-orb">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="logo-glow"></div>
+                </div>
+                <h1 class="brand-title">NEXUS<span class="tech-glow">BUILD</span></h1>
+                <p class="brand-subtitle">CONSTRUCTION ADMIN PORTAL</p>
+                <div class="access-level">
+                    <span class="level-tag">LEVEL 3 ACCESS</span>
+                    <span class="level-tag">ENCRYPTED</span>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" id="loginForm">
+                <div class="form-header">
+                    <h2><i class="fas fa-terminal"></i> SECURE LOGIN</h2>
+                    <p class="form-subtitle">Authorized personnel only</p>
+                </div>
+
+                <!-- Username Field -->
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <input type="text" 
+                           id="username" 
+                           name="username" 
+                           placeholder="ENTER ADMIN ID" 
+                           required 
+                           autocomplete="username">
+                    <div class="input-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Format: admin_xxx
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           placeholder="ENTER ACCESS CODE" 
+                           required 
+                           autocomplete="current-password">
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar"></div>
+                        <div class="strength-text">STRENGTH</div>
+                    </div>
+                </div>
+
+                <!-- Security Question -->
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <select id="securityQuestion" name="securityQuestion" required>
+                        <option value="">SELECT SECURITY QUESTION</option>
+                        <option value="mother_maiden">What is your mother's maiden name?</option>
+                        <option value="first_pet">What was your first pet's name?</option>
+                        <option value="birth_city">In what city were you born?</option>
+                        <option value="first_school">What was the name of your first school?</option>
+                        <option value="childhood_nickname">What was your childhood nickname?</option>
+                    </select>
+                    <div class="input-icon-right">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <input type="text" 
+                           id="securityAnswer" 
+                           name="securityAnswer" 
+                           placeholder="SECURITY ANSWER" 
+                           required>
+                </div>
+
+                <!-- Two-Factor Code (Optional) -->
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <input type="text" 
+                           id="twoFactorCode" 
+                           name="twoFactorCode" 
+                           placeholder="2FA CODE (OPTIONAL)"
+                           maxlength="6"
+                           pattern="[0-9]*"
+                           inputmode="numeric">
+                    <button type="button" class="generate-2fa" id="generate2FA">
+                        <i class="fas fa-sync-alt"></i> GENERATE
+                    </button>
+                </div>
+
+                <!-- Remember & Forgot -->
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-label">REMEMBER THIS DEVICE</span>
+                    </label>
+                    <a href="#" class="forgot-link" id="forgotPassword">
+                        <i class="fas fa-unlock-alt"></i> FORGOT ACCESS?
+                    </a>
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span class="btn-text">
+                        <i class="fas fa-sign-in-alt"></i> INITIATE LOGIN SEQUENCE
+                    </span>
+                    <span class="btn-loader">
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </span>
+                </button>
+
+                <!-- Security Warning -->
+                <div class="security-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>UNAUTHORIZED ACCESS ATTEMPTS ARE LOGGED AND WILL BE REPORTED</p>
+                </div>
+            </form>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="action-btn emergency" id="lockSystem">
+                    <i class="fas fa-lock"></i> LOCK SYSTEM
+                </button>
+                <button class="action-btn secondary" id="changePassword">
+                    <i class="fas fa-key"></i> CHANGE PASSWORD
+                </button>
+                <a href="index.html" class="action-btn back-btn">
+                    <i class="fas fa-arrow-left"></i> BACK TO SITE
+                </a>
+            </div>
+        </div>
+
+        <!-- === FOOTER === -->
+        <div class="login-footer">
+            <div class="footer-info">
+                <div class="connection-status">
+                    <span class="connection-dot active"></span>
+                    <span>ENCRYPTED CONNECTION</span>
+                </div>
+                <div class="ip-address">
+                    <i class="fas fa-network-wired"></i>
+                    <span id="userIP">IP: LOADING...</span>
+                </div>
+                <div class="last-login">
+                    <i class="fas fa-history"></i>
+                    <span>LAST ACCESS: --:-- --</span>
+                </div>
+            </div>
+            <div class="security-tags">
+                <span class="security-tag"><i class="fas fa-shield-alt"></i> AES-256 ENCRYPTION</span>
+                <span class="security-tag"><i class="fas fa-fingerprint"></i> BIOMETRIC READY</span>
+                <span class="security-tag"><i class="fas fa-satellite-dish"></i> REAL-TIME MONITORING</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- === MODALS === -->
+    
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content tech-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-lock"></i> PASSWORD RECOVERY</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="recovery-steps">
+                    <div class="step active">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>VERIFY IDENTITY</h4>
+                            <p>Enter your admin ID and registered email</p>
+                            <div class="step-inputs">
+                                <input type="text" placeholder="ADMIN ID" id="recoveryAdminId">
+                                <input type="email" placeholder="REGISTERED EMAIL" id="recoveryEmail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>SECURITY QUESTION</h4>
+                            <p>Answer your security question</p>
+                            <div class="step-inputs">
+                                <select id="recoveryQuestion">
+                                    <option value="">Select Question</option>
+                                    <option value="mother_maiden">What is your mother's maiden name?</option>
+                                    <option value="first_pet">What was your first pet's name?</option>
+                                </select>
+                                <input type="text" placeholder="Your Answer" id="recoveryAnswer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>NEW PASSWORD</h4>
+                            <p>Create a new strong password</p>
+                            <div class="step-inputs">
+                                <input type="password" placeholder="NEW PASSWORD" id="newPassword">
+                                <input type="password" placeholder="CONFIRM PASSWORD" id="confirmPassword">
+                            </div>
+                            <div class="password-rules">
+                                <p><i class="fas fa-check-circle"></i> At least 8 characters</p>
+                                <p><i class="fas fa-check-circle"></i> Uppercase & lowercase</p>
+                                <p><i class="fas fa-check-circle"></i> Include numbers</p>
+                                <p><i class="fas fa-check-circle"></i> Special character</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recovery-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">STEP 1 OF 3</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="prevStep">PREVIOUS</button>
+                <button class="btn-primary" id="nextStep">NEXT STEP</button>
+                <button class="btn-primary" id="submitRecovery" style="display: none;">RESET PASSWORD</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content tech-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> CHANGE PASSWORD</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="password-change-form">
+                    <div class="input-group">
+                        <label for="currentPassword">CURRENT PASSWORD</label>
+                        <input type="password" id="currentPassword" placeholder="Enter current password">
+                    </div>
+                    <div class="input-group">
+                        <label for="newPasswordChange">NEW PASSWORD</label>
+                        <input type="password" id="newPasswordChange" placeholder="Create new password">
+                        <div class="password-meter">
+                            <div class="meter-bar" id="passwordMeter"></div>
+                            <div class="meter-text" id="passwordText">WEAK</div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmNewPassword">CONFIRM NEW PASSWORD</label>
+                        <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
+                    </div>
+                    <div class="password-requirements">
+                        <h4><i class="fas fa-shield-alt"></i> PASSWORD REQUIREMENTS:</h4>
+                        <ul>
+                            <li data-rule="length">Minimum 12 characters</li>
+                            <li data-rule="uppercase">At least one uppercase letter</li>
+                            <li data-rule="lowercase">At least one lowercase letter</li>
+                            <li data-rule="number">At least one number</li>
+                            <li data-rule="special">At least one special character</li>
+                            <li data-rule="unique">Different from last 5 passwords</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelChange">CANCEL</button>
+                <button class="btn-primary" id="submitChange">UPDATE PASSWORD</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Lock Modal -->
+    <div class="modal" id="lockSystemModal">
+        <div class="modal-content tech-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-lock"></i> SYSTEM LOCK</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="lock-warning">
+                    <div class="warning-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h4>EMERGENCY SYSTEM LOCK</h4>
+                    <p>This will immediately lock all admin access. Only super administrators can unlock the system.</p>
+                    <p>Please confirm your identity to proceed:</p>
+                    <div class="lock-inputs">
+                        <input type="password" placeholder="SUPER ADMIN PIN" id="superAdminPin" maxlength="6">
+                        <input type="text" placeholder="REASON FOR LOCK" id="lockReason">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelLock">CANCEL</button>
+                <button class="btn-danger" id="confirmLock">
+                    <i class="fas fa-lock"></i> LOCK SYSTEM NOW
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- === SCRIPT === -->
+    <script src="admin-login.js"></script>
+</body>
+</html>

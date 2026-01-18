@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏗️ NexusBuild | Luxury Construction Materials</title>
+    
+
+
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Products - Hardware Store | Tools & Construction Materials</title>
+    <meta name="description" content="Browse our extensive catalog of hardware products, tools, and construction materials. Find everything you need for your construction projects.">
+    <meta name="keywords" content="hardware products, construction tools, building materials, power tools, hand tools">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Products - Hardware Store | Tools & Construction Materials">
+    <meta property="og:description" content="Browse our hardware products catalog">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://neohub254.github.io/Hardware-store/products.html">
+
+
+
+    <!-- Luxury Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Products CSS Files -->
+    <link rel="stylesheet" href="products-colors.css">
+    <link rel="stylesheet" href="products-animations.css">
+    <link rel="stylesheet" href="main-products.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    
+    <style>
+        /* Temporary styles until CSS loads */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0f;
+            color: #c0c0c0;
+            font-family: 'Exo 2', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Luxury Loader */
+        .luxury-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loader-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #d4af37, #f4e8c1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #0a0a0f;
+            animation: rotate 2s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Luxury Loader -->
+    <div class="luxury-loader" id="luxuryLoader">
+        <div class="loader-logo">
+            <i class="fas fa-gem"></i>
+        </div>
+    </div>
+    
+    <!-- Animated Background -->
+    <div class="luxury-bg">
+        <!-- Moving particles will be added by JS -->
+    </div>
+    
+    <!-- GIF Display Area (Top Right) -->
+    <div class="gif-display" id="gifDisplay">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Construction Animation" class="gif-image">
+            <div class="gif-overlay">
+                <span class="gif-label">Live Construction</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/254705455312" class="whatsapp-float" target="_blank" id="whatsappBtn">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-pulse"></span>
+    </a>
+    
+    <!-- Admin Access Button -->
+    <a href="admin.html" class="admin-float" id="adminBtn">
+        <i class="fas fa-user-shield"></i>
+        <div class="admin-tooltip">Admin Dashboard</div>
+    </a>
+    
+    <!-- Basket System -->
+    <div class="basket-container" id="basketContainer">
+        <div class="basket-header" id="basketHeader">
+            <div class="basket-info">
+                <i class="fas fa-shopping-basket"></i>
+                <div class="basket-text">
+                    <span class="basket-title">Your Luxury Order</span>
+                    <span class="basket-subtitle" id="basketSubtitle">Add premium materials</span>
+                </div>
+            </div>
+            
+            <div class="basket-stats">
+                <span class="basket-count" id="basketCount">0 items</span>
+                <span class="basket-total" id="basketTotal">Ksh 0</span>
+                <button class="basket-toggle" id="basketToggle">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="basket-content" id="basketContent">
+            <div class="basket-items" id="basketItems">
+                <div class="empty-basket">
+                    <div class="empty-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Your Luxury Basket is Empty</h3>
+                    <p>Add premium construction materials to begin</p>
+                    <button class="btn-browse" id="browseProducts">
+                        <i class="fas fa-store"></i> Browse Products
+                    </button>
+                </div>
+            </div>
+            
+            <div class="basket-actions">
+                <div class="basket-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="basketSubtotal">Ksh 0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery:</span>
+                        <span id="basketDelivery">Ksh 0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="basketFinalTotal">Ksh 0</span>
+                    </div>
+                </div>
+                
+                <div class="basket-buttons">
+                    <button class="btn-clear" id="clearBasket">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                    <button class="btn-calculate" id="calculateTotal">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <button class="btn-order" id="orderNow">
+                        <i class="fas fa-paper-plane"></i> Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order Modal -->
+    <div class="order-modal" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-invoice"></i> Luxury Order Summary</h2>
+                <button class="modal-close" id="closeOrderModal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="order-details" id="orderDetails">
+                    <!-- Order items will be added here -->
+                </div>
+                
+                <div class="customer-info">
+                    <h3><i class="fas fa-user"></i> Your Details</h3>
+                    <div class="info-grid">
+                        <div class="info-group">
+                            <label><i class="fas fa-user-tag"></i> Name</label>
+                            <input type="text" id="customerName" placeholder="Your name">
+                        </div>
+                        <div class="info-group">
+                            <label><i class="fas fa-phone"></i> Phone</label>
+                            <input type="tel" id="customerPhone" placeholder="0700 000 000">
+                        </div>
+                        <div class="info-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                            <input type="text" id="customerLocation" placeholder="Delivery location">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-actions">
+                    <button class="btn-order-whatsapp" id="sendWhatsapp">
+                        <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                    </button>
+                    <button class="btn-order-call" id="callNow">
+                        <i class="fas fa-phone-alt"></i> Call to Order
+                    </button>
+                    <button class="btn-order-sms" id="sendSMS">
+                        <i class="fas fa-sms"></i> Send SMS
+                    </button>
+                    <button class="btn-order-print" id="printOrder">
+                        <i class="fas fa-print"></i> Print Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <div class="logo-core">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="logo-ring"></div>
+                </div>
+                <div class="brand-text">
+                    <h1>NEXUS<span class="luxury-glow">BUILD</span></h1>
+                    <p class="brand-subtitle">LUXURY CONSTRUCTION MATERIALS</p>
+                </div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="products.html" class="nav-link active">
+                    <i class="fas fa-store"></i>
+                    <span>Products</span>
+                </a>
+                <a href="index.html#calculator" class="nav-link">
+                    <i class="fas fa-calculator"></i>
+                    <span>Calculator</span>
+                </a>
+                <a href="index.html#delivery" class="nav-link">
+                    <i class="fas fa-truck"></i>
+                    <span>Delivery</span>
+                </a>
+                
+                <!-- Mini Basket -->
+                <div class="mini-basket" id="miniBasket">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="mini-count" id="miniCount">0</span>
+                    <div class="mini-total" id="miniTotal">Ksh 0</div>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-header">
+            <div class="mobile-brand">
+                <i class="fas fa-gem"></i>
+                <span>NEXUSBUILD</span>
+            </div>
+            <button class="mobile-close" id="mobileClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-links">
+            <a href="index.html" class="mobile-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="products.html" class="mobile-link active">
+                <i class="fas fa-store"></i> Products
+            </a>
+            <a href="index.html#calculator" class="mobile-link">
+                <i class="fas fa-calculator"></i> Calculator
+            </a>
+            <a href="index.html#delivery" class="mobile-link">
+                <i class="fas fa-truck"></i> Delivery
+            </a>
+        </div>
+        
+        <div class="mobile-basket">
+            <div class="mobile-basket-header">
+                <h3><i class="fas fa-shopping-basket"></i> Your Basket</h3>
+                <span id="mobileBasketCount">0 items</span>
+            </div>
+            <div class="mobile-basket-total" id="mobileBasketTotal">
+                Ksh 0
+            </div>
+            <button class="btn-mobile-order" id="mobileOrder">
+                <i class="fas fa-paper-plane"></i> Order Now
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-line">PREMIUM</span>
+                        <span class="title-line luxury-glow">CONSTRUCTION</span>
+                        <span class="title-line">MATERIALS</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        Discover our luxury collection of high-quality construction materials. 
+                        Each product is carefully selected for excellence and durability.
+                    </p>
+                    
+                    <!-- Search and Filter -->
+                    <div class="hero-controls">
+                        <div class="search-container">
+                            <i class="fas fa-search"></i>
+                            <input type="text" 
+                                   id="productSearch" 
+                                   placeholder="Search luxury materials..."
+                                   class="search-input">
+                            <button class="search-clear" id="clearSearch">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="filter-container">
+                            <select id="categoryFilter" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="cement">Cement & Aggregates</option>
+                                <option value="roofing">Roofing Materials</option>
+                                <option value="plumbing">Plumbing Supplies</option>
+                                <option value="electrical">Electrical Materials</option>
+                                <option value="tools">Hardware Tools</option>
+                                <option value="steel">Steel & Metal</option>
+                                <option value="paints">Paints & Finishes</option>
+                            </select>
+                            
+                            <select id="sortFilter" class="filter-select">
+                                <option value="name">Sort by Name</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="stock">In Stock First</option>
+                            </select>
+                            
+                            <button class="btn-filter" id="applyFilters">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Products Grid -->
+        <section class="products-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-gem"></i>
+                        Luxury Products Collection
+                    </h2>
+                    <div class="section-info">
+                        <span class="products-count" id="productsCount">0 Products</span>
+                        <span class="total-value" id="totalValue">Total Value: Ksh 0</span>
+                    </div>
+                </div>
+                
+                <!-- Live Calculator -->
+                <div class="calculator-widget" id="calculatorWidget">
+                    <div class="calculator-header">
+                        <h3><i class="fas fa-calculator"></i> Live Price Calculator</h3>
+                        <button class="calculator-toggle" id="calculatorToggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="calculator-body" id="calculatorBody">
+                        <div class="calculator-inputs">
+                            <div class="calc-group">
+                                <label><i class="fas fa-cube"></i> Product</label>
+                                <select id="calcProduct" class="calc-select">
+                                    <option value="">Select a product</option>
+                                </select>
+                            </div>
+                            
+                            <div class="calc-group">
+                                <label><i class="fas fa-balance-scale"></i> Quantity</label>
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" id="calcMinus">-</button>
+                                    <input type="number" 
+                                           id="calcQuantity" 
+                                           value="1" 
+                                           min="1" 
+                                           class="qty-input">
+                                    <button class="qty-btn plus" id="calcPlus">+</button>
+                                    <span class="qty-unit" id="calcUnit">bag</span>
+                                </div>
+                            </div>
+                            
+                            <div class="calc-group">
+                                <label><i class="fas fa-truck"></i> Delivery</label>
+                                <select id="calcDelivery" class="calc-select">
+                                    <option value="0">Pickup (Free)</option>
+                                    <option value="500">Within Nyeri (Ksh 500)</option>
+                                    <option value="1000">Neighboring Areas (Ksh 1,000)</option>
+                                    <option value="2000">Other Regions (Ksh 2,000+)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="calculator-results">
+                            <div class="result-row">
+                                <span>Product Cost:</span>
+                                <span id="calcProductCost">Ksh 0</span>
+                            </div>
+                            <div class="result-row">
+                                <span>Delivery:</span>
+                                <span id="calcDeliveryCost">Ksh 0</span>
+                            </div>
+                            <div class="result-row total">
+                                <span>Total Cost:</span>
+                                <span id="calcTotalCost">Ksh 0</span>
+                            </div>
+                            
+                            <div class="calc-actions">
+                                <button class="btn-calc-add" id="addToBasketCalc">
+                                    <i class="fas fa-cart-plus"></i> Add to Basket
+                                </button>
+                                <button class="btn-calc-clear" id="clearCalculator">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded by JavaScript -->
+                    <div class="loading-products">
+                        <div class="loading-spinner"></div>
+                        <p>Loading luxury products...</p>
+                    </div>
+                </div>
+                
+                <!-- No Products Message -->
+                <div class="no-products" id="noProducts" style="display: none;">
+                    <div class="no-products-icon">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <h3>No Products Found</h3>
+                    <p>Try adjusting your search or filter criteria</p>
+                    <button class="btn-reset-filters" id="resetFilters">
+                        <i class="fas fa-redo"></i> Reset All Filters
+                    </button>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="products-pagination" id="productsPagination">
+                    <!-- Pagination will be generated by JavaScript -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact CTA -->
+        <section class="contact-section">
+            <div class="section-container">
+                <div class="contact-content">
+                    <div class="contact-text">
+                        <h2><i class="fas fa-headset"></i> Premium Support</h2>
+                        <p>Our luxury support team is ready to assist you with material selection, 
+                        project planning, and expert advice.</p>
+                        
+                        <div class="contact-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="productsAvailable">0</div>
+                                <div class="stat-label">Premium Products</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="ordersToday">0</div>
+                                <div class="stat-label">Orders Today</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">24/7</div>
+                                <div class="stat-label">Support Available</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-methods">
+                        <a href="tel:0705455312" class="contact-method phone">
+                            <div class="method-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>Call Us</h3>
+                                <p>Direct expert consultation</p>
+                                <strong>0705 455 312</strong>
+                            </div>
+                        </a>
+                        
+                        <a href="https://wa.me/254705455312" class="contact-method whatsapp">
+                            <div class="method-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>WhatsApp</h3>
+                                <p>Instant chat & photo sharing</p>
+                                <strong>0705 455 312</strong>
+                            </div>
+                        </a>
+                        
+                        <a href="sms:0705455312" class="contact-method sms">
+                            <div class="method-icon">
+                                <i class="fas fa-sms"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>SMS Order</h3>
+                                <p>Quick text order system</p>
+                                <strong>0705 455 312</strong>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:info@nexusbuild.co.ke" class="contact-method email">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-content">
+                                <h3>Email</h3>
+                                <p>Detailed inquiries & quotes</p>
+                                <strong>info@nexusbuild.co.ke</strong>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="luxury-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="footer-text">
+                        <h2>NEXUS<span class="luxury-glow">BUILD</span></h2>
+                        <p>Luxury Construction Materials & Solutions</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-column">
+                        <h3>Quick Links</h3>
+                        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                        <a href="products.html" class="active"><i class="fas fa-store"></i> Products</a>
+                        <a href="admin.html"><i class="fas fa-user-shield"></i> Admin</a>
+                        <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                    </div>
+                    
+                    <div class="link-column">
+                        <h3>Contact</h3>
+                        <a href="tel:0705455312"><i class="fas fa-phone-alt"></i> 0705 455 312</a>
+                        <a href="https://wa.me/254705455312"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="sms:0705455312"><i class="fas fa-sms"></i> SMS</a>
+                        <a href="mailto:info@nexusbuild.co.ke"><i class="fas fa-envelope"></i> Email</a>
+                    </div>
+                    
+                    <div class="link-column">
+                        <h3>Business</h3>
+                        <p><i class="fas fa-clock"></i> Mon-Sat: 7:00 AM - 7:00 PM</p>
+                        <p><i class="fas fa-clock"></i> Sunday: 9:00 AM - 4:00 PM</p>
+                        <p><i class="fas fa-truck"></i> Same-day Delivery</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Nyeri, Kenya</p>
+                    </div>
+                </div>
+                
+                <div class="footer-basket">
+                    <h3>Your Order</h3>
+                    <div class="footer-basket-info">
+                        <div class="footer-basket-count" id="footerBasketCount">
+                            <i class="fas fa-shopping-basket"></i>
+                            <span>0 items</span>
+                        </div>
+                        <div class="footer-basket-total" id="footerBasketTotal">
+                            Ksh 0
+                        </div>
+                    </div>
+                    <button class="btn-footer-order" id="footerOrderBtn">
+                        <i class="fas fa-paper-plane"></i> Order Now
+                    </button>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2024 NexusBuild Luxury. All rights reserved.
+                </div>
+                
+                <div class="footer-actions">
+                    <button class="btn-scroll-top" id="scrollTop">
+                        <i class="fas fa-arrow-up"></i> Back to Top
+                    </button>
+                    <button class="btn-refresh" id="refreshProducts">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Files -->
+    <script src="shared-database.js"></script>
+    <script src="products.js"></script>
+    
+    <!-- Loading Script -->
+    <script>
+        // Hide loader when page loads
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('luxuryLoader');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(function() {
+                        loader.style.display = 'none';
+                    }, 500);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

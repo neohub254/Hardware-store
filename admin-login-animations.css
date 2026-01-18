@@ -1,0 +1,388 @@
+/* ============================================
+   ADMIN LOGIN ANIMATIONS
+   ============================================ */
+
+/* === KEYFRAMES === */
+@keyframes scan {
+    0% {
+        top: 0;
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0.5;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px currentColor;
+    }
+    50% {
+        text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* === ANIMATION CLASSES === */
+.animate-scan {
+    animation: scan 3s linear infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-blink {
+    animation: blink 1.5s infinite;
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.animate-shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-rotate {
+    animation: rotate 2s linear infinite;
+}
+
+.animate-rotate-slow {
+    animation: rotate 10s linear infinite;
+}
+
+/* === LOGO ANIMATIONS === */
+.logo-orb {
+    animation: float 4s ease-in-out infinite;
+}
+
+.tech-glow {
+    animation: glow 3s ease-in-out infinite;
+}
+
+/* === INPUT ANIMATIONS === */
+input:focus, select:focus {
+    animation: pulse 2s infinite;
+}
+
+.input-error {
+    animation: shake 0.5s ease-in-out;
+    border-color: var(--tech-accent-alt) !important;
+    box-shadow: var(--glow-red) !important;
+}
+
+.input-success {
+    border-color: var(--tech-accent) !important;
+    box-shadow: var(--glow-primary) !important;
+}
+
+/* === LOADING ANIMATIONS === */
+.loading-dots span {
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+/* === SECURITY ANIMATIONS === */
+.security-scanner {
+    animation: scan 3s linear infinite;
+}
+
+.shield-icon {
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.active {
+    animation: blink 1.5s infinite;
+}
+
+.connection-dot.active {
+    animation: blink 2s infinite;
+}
+
+/* === MODAL ANIMATIONS === */
+.tech-modal {
+    animation: slideDown 0.3s ease-out;
+}
+
+.modal-close:hover {
+    animation: rotate 0.3s ease;
+}
+
+/* === PROGRESS ANIMATIONS === */
+.progress-fill {
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === PASSWORD STRENGTH ANIMATIONS === */
+.strength-bar {
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* === HOVER ANIMATIONS === */
+.action-btn:hover, .btn-primary:hover, .btn-secondary:hover, .btn-danger:hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === STAGGERED ANIMATIONS === */
+.stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+
+/* === TYPING ANIMATION === */
+.typing-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--tech-accent);
+    animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+}
+
+/* === RIPPLE EFFECT === */
+.ripple-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(100, 255, 218, 0.6);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.ripple-effect:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+/* === GLITCH EFFECT === */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+.glitch-effect {
+    animation: glitch 0.5s infinite;
+}
+
+/* === ACCESS GRANTED ANIMATION === */
+@keyframes accessGranted {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.access-granted {
+    animation: accessGranted 0.5s ease forwards;
+}
+
+/* === ACCESS DENIED ANIMATION === */
+@keyframes accessDenied {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+.access-denied {
+    animation: accessDenied 0.5s ease;
+    background: rgba(255, 107, 107, 0.1) !important;
+    border-color: var(--tech-accent-alt) !important;
+}
+
+/* === SESSION TIMER ANIMATION === */
+@keyframes timerWarning {
+    0%, 100% {
+        color: var(--tech-gray);
+    }
+    50% {
+        color: var(--tech-accent-alt);
+    }
+}
+
+.timer-warning {
+    animation: timerWarning 1s infinite;
+}
+
+/* === PERFORMANCE OPTIMIZATION === */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* === ANIMATION UTILITIES === */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+.duration-fast { animation-duration: 0.3s; }
+.duration-normal { animation-duration: 0.6s; }
+.duration-slow { animation-duration: 1s; }
+.duration-slower { animation-duration: 2s; }
+
+.animate-forwards { animation-fill-mode: forwards; }
+.animate-backwards { animation-fill-mode: backwards; }
+.animate-both { animation-fill-mode: both; }

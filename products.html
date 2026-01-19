@@ -631,10 +631,24 @@
             </div>
         </div>
     </footer>
+    <script src="shared-database.js"></script>
+    <script>
+        // Force database initialization
+        (function() {
+            console.log('🔧 Ensuring database is ready...');
+            if (!window.NexusDB) {
+                console.log('🔄 Creating database instance...');
+                window.NexusDB = NexusDatabase.getInstance();
+            }
+            console.log('✅ Database ready for page scripts');
+        })();
+    </script>
     
+    <!-- Now load page-specific scripts -->
+    <script src="js/products.js"></script>
     <!-- JavaScript Files -->
        <script src="database-loader.js"></script>
-    <script src="shared-database.js"></script>
+
     <script src="products.js"></script>
     
     <!-- Loading Script -->
@@ -655,3 +669,4 @@
 </body>
 
 </html>
+

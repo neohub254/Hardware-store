@@ -2,33 +2,51 @@
 // NEXUSBUILD PRODUCTS - LUXURY EDITION
 // Complete Integration with Admin Dashboard
 // ============================================
+// ============================================
+// NEXUSBUILD PRODUCTS - LUXURY EDITION
+// ============================================
 
+// Wait for DOM AND database to be ready
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🏗️ NexusBuild Products - Luxury Edition');
-    console.log('💎 Features: Live Calculator, Interactive Basket, Admin Sync');
+    console.log('🏗️ Products Page Loading...');
     
-    // Initialize database
-    const db = window.NexusDB;
-    
-    // State management
-    const state = {
-        products: [],
-        basket: [],
-        filteredProducts: [],
-        currentPage: 1,
-        productsPerPage: 12,
-        searchQuery: '',
-        categoryFilter: 'all',
-        sortFilter: 'name',
-        isBasketExpanded: false,
-        isCalculatorExpanded: true,
-        isMobile: window.innerWidth < 768,
-        selectedProduct: null,
-        deliveryCost: 0
-    };
+    // Wait for database to be fully loaded
+    function initApp() {
+        console.log('💎 Starting Luxury Products System...');
+        
+        // Now safely access the database
+        const db = window.NexusDB;
+        
+        if (!db || db._isPlaceholder) {
+            console.error('❌ Database not ready yet, retrying...');
+            setTimeout(initApp, 500);
+            return;
+        }
+        
+        console.log('✅ Database connected successfully!');
+        
+        // ====================
+        // STATE MANAGEMENT
+        // ====================
+        const state = {
+            products: [],
+            basket: [],
+            filteredProducts: [],
+            currentPage: 1,
+            productsPerPage: 12,
+            searchQuery: '',
+            categoryFilter: 'all',
+            sortFilter: 'name',
+            isBasketExpanded: false,
+            isCalculatorExpanded: true,
+            isMobile: window.innerWidth < 768,
+            selectedProduct: null,
+            deliveryCost: 0
+        };
 
-    // ====================
-    // ELEMENT REFERENCES
+        // ... rest of your existing code ...
+        
+          // ELEMENT REFERENCES
     // ====================
     const elements = {
         // Basket
@@ -1237,4 +1255,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Start the application
     init();
-});
+
+}
+    
+                         
+                         
+               
+    // Start the initialization
+    initApp();
+});             
+
+
+
+       

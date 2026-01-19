@@ -953,6 +953,45 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.remove();
         }, 5000);
     }
+
+
+
+
+    function resetToDefaults() {
+    // Clear all stored credentials
+    localStorage.removeItem('admin_password');
+    localStorage.removeItem('security_question');
+    localStorage.removeItem('security_answer');
+    localStorage.removeItem('system_locked_until');
+    localStorage.removeItem('remembered_user');
+    
+    console.log('✅ All credentials reset to defaults');
+    showSuccess('System reset to default credentials');
+    
+    // Reload to apply changes
+    setTimeout(() => {
+        window.location.reload();
+    }, 1500);
+}
+
+// Add a reset button (temporary) for debugging
+const resetBtn = document.createElement('button');
+resetBtn.textContent = 'Reset to Defaults';
+resetBtn.style.position = 'fixed';
+resetBtn.style.bottom = '10px';
+resetBtn.style.right = '10px';
+resetBtn.style.zIndex = '10000';
+resetBtn.style.padding = '10px';
+resetBtn.style.background = '#ff6b6b';
+resetBtn.style.color = 'white';
+resetBtn.style.border = 'none';
+resetBtn.style.borderRadius = '5px';
+resetBtn.style.cursor = 'pointer';
+resetBtn.onclick = resetToDefaults;
+document.body.appendChild(resetBtn);
+
+
+
     
     function closeAllModals() {
         document.querySelectorAll('.modal').forEach(modal => {
@@ -1024,3 +1063,4 @@ document.addEventListener('DOMContentLoaded', function() {
     init();
 
 });
+

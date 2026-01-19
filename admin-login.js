@@ -13,20 +13,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // Default admin credentials (In production, this should be server-side)
         DEFAULT_ADMIN: {
             username: 'admin_nexus',
-            password: 'NexusBuild@2024!', // Default password
+            password: 'Neohub123!.', // Default password
             securityQuestion: 'first_pet',
             securityAnswer: 'max',
             email: 'admin@nexusbuild.co.ke'
         },
         
         // Security settings
-        MAX_ATTEMPTS: 3,
+        MAX_ATTEMPTS: 4,
         LOCKOUT_TIME: 15 * 60 * 1000, // 15 minutes in milliseconds
         SESSION_TIMEOUT: 30 * 60 * 1000, // 30 minutes
         
         // Password requirements
         PASSWORD_RULES: {
-            minLength: 12,
+            minLength: 7,
             requireUppercase: true,
             requireLowercase: true,
             requireNumbers: true,
@@ -235,8 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let messages = [];
         
         // Length check
+        if (password.length >= 6) strength += 20;
         if (password.length >= 8) strength += 20;
-        if (password.length >= 12) strength += 20;
         
         // Character type checks
         if (/[A-Z]/.test(password)) strength += 20;
@@ -1022,4 +1022,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // INITIALIZE
     // ====================
     init();
+
 });

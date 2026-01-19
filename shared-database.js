@@ -690,4 +690,39 @@ window.NexusDB = NexusDatabase.getInstance();
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = NexusDatabase;
+
 }
+
+
+
+// ... your existing database code ...
+
+// Signal that database is ready
+window.dispatchEvent(new CustomEvent('nexusDatabaseReady', {
+    detail: { version: this.VERSION }
+}));
+
+// Update the placeholder with real methods
+if (window.NexusDB && window.NexusDB._isPlaceholder) {
+    const placeholder = window.NexusDB;
+    const realDB = NexusDatabase.getInstance();
+    
+    // Replace placeholder with real database
+    Object.keys(realDB).forEach(key => {
+        window.NexusDB[key] = realDB[key];
+    });
+    
+    // Clear placeholder flag
+    delete window.NexusDB._isPlaceholder;
+    
+    // Execute queued callbacks
+    if (placeholder._callbacks && placeholder._callbacks.length > 0) {
+        placeholder._callbacks.forEach(callback => {
+            callback(window.NexusDB);
+        });
+    }
+}
+
+console.log('🚀 Nexus Database Ready for All Pages');
+
+
